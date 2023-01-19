@@ -7,7 +7,7 @@ esphome:
     - amg8833_main.h
     #- amg8833_camera.h
     - amg8833_detection.h
-    - amg8833_debug.h
+    #- amg8833_debug.h
   libraries:
     - "Wire"
     - "SparkFun GridEYE AMG88 Library"
@@ -45,46 +45,6 @@ binary_sensor:
 sensor:
   - platform: custom
     lambda: |-
-      auto amg8833 = new AMG8833DebugComponent();
-      App.register_component(amg8833);
-      return {amg8833->hot_pixels, amg8833->warm_pixels, amg8833->device_temp, amg8833->max_temp, amg8833->min_temp, amg8833->range_temp, amg8833->avg_temp};
-
-    sensors:
-      - name: "${device_name} Pixels Hot"
-        accuracy_decimals: 1
-        unit_of_measurement: "%"
-
-      - name: "${device_name} Pixels Warm"
-        accuracy_decimals: 1
-        unit_of_measurement: "%"
-
-      - name: "${device_name} Device Temperature"
-        unit_of_measurement: "°C"
-        device_class: temperature
-        accuracy_decimals: 1
-
-      - name: "${device_name} Temperature Max"
-        unit_of_measurement: "°C"
-        device_class: temperature
-        accuracy_decimals: 1
-
-      - name: "${device_name} Temperature Min"
-        unit_of_measurement: "°C"
-        device_class: temperature
-        accuracy_decimals: 1
-
-      - name: "${device_name} Temperature Range"
-        unit_of_measurement: "°C"
-        device_class: temperature
-        accuracy_decimals: 1
-
-      - name: "${device_name} Temperature Avg"
-        unit_of_measurement: "°C"
-        device_class: temperature
-        accuracy_decimals: 1
-
-  - platform: custom
-    lambda: |-
       auto amg8833 = new AMG8833MainComponent();
       App.register_component(amg8833);
       return {amg8833->main_temperature};
@@ -95,5 +55,43 @@ sensor:
         unit_of_measurement: "°C"
         device_class: temperature
 
+ # - platform: custom
+ #   lambda: |-
+ #     auto amg8833 = new AMG8833DebugComponent();
+ #     App.register_component(amg8833);
+ #     return {amg8833->hot_pixels, amg8833->warm_pixels, amg8833->device_temp, amg8833->max_temp, amg8833->min_temp, amg8833->range_temp, amg8833->avg_temp};
 
-               
+ #   sensors:
+ #     - name: "${device_name} Pixels Hot"
+ #       accuracy_decimals: 1
+ #       unit_of_measurement: "%"
+
+ #     - name: "${device_name} Pixels Warm"
+ #       accuracy_decimals: 1
+ #       unit_of_measurement: "%"
+
+ #     - name: "${device_name} Device Temperature"
+ #       unit_of_measurement: "°C"
+ #       device_class: temperature
+ #       accuracy_decimals: 1
+
+ #     - name: "${device_name} Temperature Max"
+ #       unit_of_measurement: "°C"
+ #       device_class: temperature
+ #       accuracy_decimals: 1
+
+ #     - name: "${device_name} Temperature Min"
+ #       unit_of_measurement: "°C"
+ #       device_class: temperature
+ #       accuracy_decimals: 1
+
+ #     - name: "${device_name} Temperature Range"
+ #       unit_of_measurement: "°C"
+ #       device_class: temperature
+ #       accuracy_decimals: 1
+
+ #     - name: "${device_name} Temperature Avg"
+ #       unit_of_measurement: "°C"
+ #       device_class: temperature
+ #       accuracy_decimals: 1
+
