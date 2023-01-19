@@ -5,3 +5,4 @@ Partslist:
   2. RC522 Module (RFID read/write)
   3. Rtttl Buzzer
   4. WS2812b led-strip (3 leds)
+  5. Some RFID tags or cards
