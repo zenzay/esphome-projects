@@ -1,5 +1,5 @@
 # esphome-projects
-A collection of esphome projects I've either completed, currently working on, or totally abandoned.
+A collection of esphome projects I've either completed or currently working on.
 
 1. alarm-panel
 2. multi-sensor
