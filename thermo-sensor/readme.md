@@ -6,4 +6,4 @@ You can find his repository here: https://github.com/TheRealWaldo/AMG8833-ESPHOM
 
 I use an ESP32 (Wemos D1 ESP32) with the AMG8833 connected to pin 21 and 22 (sda and scl).
 
-
+This is work in progress as I'm hoping to improve on the detection technique.
