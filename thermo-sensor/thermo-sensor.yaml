@@ -39,7 +39,7 @@ binary_sensor:
       App.register_component(amg8833);
       return {amg8833};
     binary_sensors:
-      name: "${device_name} Detected"
+      name: "${device_name} Occupancy"
       device_class: occupancy
 
 sensor:
