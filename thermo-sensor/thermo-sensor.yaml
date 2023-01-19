@@ -5,7 +5,6 @@ esphome:
   name: $device_name
   includes:
     - amg8833_main.h
-    #- amg8833_camera.h
     - amg8833_detection.h
     #- amg8833_debug.h
   libraries:
