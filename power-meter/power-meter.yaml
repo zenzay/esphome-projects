@@ -1,0 +1,244 @@
+substitutions:
+  device_name: power-meter
+  upper_devicename: Power Meter
+
+esphome:
+  name: $device_name
+  on_boot:
+    priority: 600
+    then:
+      - pulse_meter.set_total_pulses:
+          id: power_pulse_meter
+          value: !lambda 'return id(total_power_pulses);'
+
+esp32:
+  board: nodemcu-32s
+  framework:
+    type: arduino
+
+logger:
+
+api:
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+globals:
+  - id: total_power_pulses
+    type: int
+    restore_value: yes
+    initial_value: '0'
+
+light:
+  - platform: neopixelbus
+    variant: WS2812
+    pin: GPIO14
+    num_leds: 1
+    type: GRB
+    #name: "${device_name} Sensor Led"
+    id: sensor_led
+    default_transition_length: 0s
+    color_correct: [50%, 50%, 50%]
+    restore_mode: ALWAYS_OFF
+
+number:
+  - platform: template
+    id: pulse_rate
+    name: '${device_name} Pulse rate'
+    optimistic: true
+    unit_of_measurement: "imp/kWh"
+    mode: box
+    min_value: 100
+    max_value: 10000
+    step: 100
+    restore_value: yes
+    initial_value: 1000
+    entity_category: "config"
+
+  - platform: template
+    id: start_total
+    name: '${device_name} Usage Start Reading'
+    unit_of_measurement: "kWh"
+    optimistic: true
+    mode: box
+    min_value: 0
+    max_value: 100000
+    step: 0.001
+    restore_value: yes
+    initial_value: 0
+    entity_category: "config"
+
+  - platform: template
+    id: new_pulse_count
+    name: '${device_name} New Pulse Count'
+    optimistic: true
+    unit_of_measurement: "imp"
+    mode: box
+    min_value: 0
+    max_value: 999999999
+    step: 1
+    restore_value: yes
+    initial_value: 0
+    entity_category: "config"
+
+  - platform: template
+    id: power_problem_level
+    name: '${device_name} Power Problem Level'
+    optimistic: true
+    unit_of_measurement: "kWh"
+    mode: box
+    min_value: 10
+    max_value: 100000
+    step: 1
+    restore_value: yes
+    initial_value: 10000
+    entity_category: "config"
+
+button:
+  - platform: factory_reset
+    name: "${device_name} Factory Reset"
+
+  - platform: template
+    name: "${device_name} New Pulse Count Set"
+    id: new_pulse_count_set
+    entity_category: "config"
+    on_press:
+      pulse_meter.set_total_pulses:
+        id: power_pulse_meter
+        value: !lambda 'return id(new_pulse_count).state;'
+
+switch:
+  - platform: template
+    name: "${device_name} Sensor Led Enabled"
+    id: sensor_led_enabled
+    entity_category: "config"
+    turn_on_action:
+      lambda: |-
+        id(sensor_led_enabled).publish_state(true);
+    turn_off_action:
+      lambda: |-
+        id(sensor_led_enabled).publish_state(false);
+        auto call = id(sensor_led).turn_off();
+        call.perform();
+
+binary_sensor:
+  - platform: template
+    name: "${upper_devicename} Status"
+    id: power_status
+    device_class: problem
+    on_state:
+      then:
+
+sensor:
+  - platform: pulse_meter
+    name: "${upper_devicename} Power"
+    id: power_pulse_meter
+    unit_of_measurement: 'W'
+    state_class: measurement
+    device_class: power
+    icon: mdi:flash-outline
+    accuracy_decimals: 0
+    pin: GPIO26
+    internal_filter_mode: EDGE
+    internal_filter: 50ms
+    filters:
+      - lambda: return x * ((60.0 / id(pulse_rate).state) * 1000.0);
+    on_value:
+      then:
+        - lambda: |-
+            if (x > id(power_problem_level).state) {
+              id(power_status).publish_state(true);
+            } else {
+              id(power_status).publish_state(false);
+            }
+            if (id(sensor_led_enabled).state) {
+              // percent of power problem level - x / id(power_problem_level).state * 100;
+              id(sensor_set_led)->execute(x / id(power_problem_level).state * 100);
+            }
+    total:
+      #name: "${upper_devicename} Total"
+      id: power_total_pulses
+      on_value:
+        lambda: |-
+          id(total_power_pulses) = x;
+          id(power_total_kwh).publish_state(id(total_power_pulses) * (1.0 / id(pulse_rate).state));
+          if (id(start_total).state > id(power_total_kwh).state) {
+            id(power_total_usage).publish_state(id(power_total_kwh).state + id(start_total).state);
+          } else {
+            id(power_total_usage).publish_state(id(power_total_kwh).state - id(start_total).state);
+          }
+
+  - platform: total_daily_energy
+    name: "${upper_devicename} Daily"
+    id: power_total_daily
+    power_id: power_pulse_meter
+    unit_of_measurement: 'kWh'
+    icon: mdi:circle-slice-3
+    state_class: total_increasing
+    device_class: energy
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  - platform: template
+    name: "${upper_devicename} Total"
+    id: power_total_kwh
+    unit_of_measurement: 'kWh'
+    icon: mdi:circle-slice-3
+    state_class: total_increasing
+    device_class: energy
+    accuracy_decimals: 3
+    update_interval: never
+
+  - platform: template
+    name: "${upper_devicename} Usage"
+    id: power_total_usage
+    unit_of_measurement: 'kWh'
+    icon: mdi:circle-slice-3
+    state_class: total_increasing
+    device_class: energy
+    accuracy_decimals: 3
+    update_interval: never
+
+time:
+  - platform: homeassistant
+    id: ha_time
+
+script:
+  - id: sensor_set_led
+    mode: restart
+    parameters:
+      perc: float
+    then:
+      - lambda: |-
+          float r;
+          float g;
+          float b = 0;
+          if (perc < 0) {
+            perc = 0;
+          }
+          if (perc > 100) {
+            perc = 100;
+          }
+          if (perc < 50) {
+            g = 1;
+            r = floor(perc / 100 * 2);
+          } else {
+            r = 1;
+            g = floor(1 - (perc / 100));
+          }
+          if (id(sensor_led).current_values.is_on()) {
+            auto call = id(sensor_led).turn_off();
+            call.perform();
+            delay(200);
+          }
+          auto call = id(sensor_led).turn_on();
+          call.set_brightness(0.4);
+          // call.set_transition_length(1000);
+          // call.set_color_mode(ColorMode::RGB_COLD_WARM_WHITE);
+          call.set_rgb(r, g, b);
+          call.perform();
+
