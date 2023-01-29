@@ -1,10 +1,12 @@
 This is my version of a non-invasive power meter.
 
-This is heavily inspired by:
+I've used Home Assistant Glow for a while and it was not until lately, when I got strange spikes in the reported power consumption, that I bothered to look closer at the code. This is the result.
+
+The excellent Home Assistant Glow can be found here:
 
 https://github.com/klaasnicolaas/home-assistant-glow
 
-I have changed the led to a single ws2812b led and have added some homegrown features to the code.
+I changed the led to a single ws2812b led and have added some homegrown features to the code.
 
 1. Restoring the Total Pulse Count at boot. Saving it in an Global Variable (with Restore set to yes) and using it at boot.
 2. Added a way to get warnings with high or abnormal power consumption levels. A binary_sensor will indicate a problem if level is above a specified level.
