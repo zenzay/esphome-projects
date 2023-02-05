@@ -81,7 +81,7 @@ text_sensor:
           } else if (x == "off") {
             if (id(auto_status) > $al_auto_idle) {
               id(auto_light_abort).press();
-            } else {
+            } else if (!(id(auto_light_ready).state)) {
               id(is_auto_light_ready).execute();
             }
           }
@@ -92,11 +92,6 @@ light:
     id: auto_light_led
     output: auto_light_led_out
     on_turn_on:
-      - homeassistant.event:
-          event: esphome.auto_light
-          data:
-            entity_id: "light.${ha_light}"
-            state: 'on'
       - lambda: |-
           if (id(sensor_light_auto).state) {
             id(sensor_light_set)->execute(0,2,1);
@@ -106,10 +101,20 @@ light:
             id(timeout_count) =  id(auto_light_duration).state;
             id(auto_light_timeout).execute();
           }
+          id(auto_light_ready).publish_state(false);
+      - if:
+          condition:
+            switch.is_off: auto_light_events_disabled
+          then:
+            - homeassistant.event:
+                event: esphome.auto_light
+                data:
+                  entity_id: "light.${ha_light}"
+                  state: 'on'
     on_turn_off:
       - if:
           condition:
-            lambda: return ( id(auto_status) > $al_auto_idle );
+            lambda: return (( id(auto_status) > $al_auto_idle ) && (!(id(auto_light_events_disabled).state)));
           then:
             - homeassistant.event:
                 event: esphome.auto_light
@@ -120,6 +125,9 @@ light:
           id(auto_status) = $al_auto_idle;
           if (id(sensor_light_auto).state) {
             id(sensor_light_set)->execute(0,2,0);
+          }
+          if (!(id(auto_light_ready).state)) {
+            id(is_auto_light_ready).execute();
           }
 
   - platform: neopixelbus
@@ -234,6 +242,17 @@ switch:
         id(motion_sensor_disabled).publish_state(false);
         id(motion_sensor).publish_state(id(pir_sensor).state);
 
+  - platform: template
+    name: "${device_name} Auto-Light Events Disabled"
+    id: auto_light_events_disabled
+    entity_category: "config"
+    turn_on_action:
+      lambda: |-
+        id(auto_light_events_disabled).publish_state(true);
+    turn_off_action:
+      lambda: |-
+        id(auto_light_events_disabled).publish_state(false);
+ 
   - platform: template
     name: "${device_name} Automatic Sensor Light"
     id: sensor_light_auto
