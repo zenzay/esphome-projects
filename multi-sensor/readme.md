@@ -1,4 +1,4 @@
-A multi-sensor with Temperature, Humidity, Pressure, Motion and Light sensors.
+A multi-sensor with Temperature, Humidity, Pressure, Motion and Light sensors and Automatic Light.
 
 Partlist:
 
