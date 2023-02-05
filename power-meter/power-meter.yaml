@@ -4,7 +4,6 @@ substitutions:
   project_name: zenzay.power_meter
   pulse_rate: '1000.0'
   ntp_server: '10.25.8.1'
-  avg_window: '7'
 
 esphome:
   name: $device_name
@@ -38,7 +37,6 @@ logger:
 api:
 
 ota:
-  password: "8a3b173cf511422302c6d6a63addf926"
 
 wifi:
   ssid: !secret wifi_ssid
