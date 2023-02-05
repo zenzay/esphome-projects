@@ -1,0 +1,30 @@
+- sensor:
+    - name: "AutoLight Brightness"
+      unique_id: autolight_brightness
+      icon: mdi:brightness-auto
+      unit_of_measurement: "%"
+      state: >-
+        {% if ( now().hour >= 23 ) %}
+           {{ ( now().minute * -1.5 + 100 ) | int }}
+        {% elif (( now().hour >= 9) or ( state_attr('sun.sun','elevation') >= 6.0 )) %}
+          {{ 100 | int }}
+        {% elif ( state_attr('sun.sun','elevation') < -18.0 ) %}
+          {{ 5 | int }}
+        {% else %}
+          {{ (( state_attr('sun.sun','elevation') - 6 ) * 4.1 + 100) | int }}
+        {% endif %}
+
+    - name: "AutoLight Kelvin"
+      unique_id: autolight_kelvin
+      icon: mdi:temperature-kelvin
+      unit_of_measurement: "K"
+      state: >-
+        {% if now().hour >= 23 %}
+          {{ ( now().minute * -18 + 3820 ) | int }}
+        {% elif now().hour >= 9 %}
+          {{ 4000 | int }}
+        {% elif state_attr('sun.sun','elevation') < -18.0 %}
+          {{ 2200 | int }}
+        {% else %}
+          {{ ( state_attr('sun.sun','elevation') * 90.0 + 3820) | int }}
+        {% endif %}
