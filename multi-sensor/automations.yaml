@@ -12,7 +12,6 @@
     data:
       brightness_pct: '{{states(''sensor.autolight_brightness'')}}'
       kelvin: '{{states(''sensor.autolight_kelvin'')}}'
-      transition: '{{states(''input_number.autolight_transition_on'')}}'
     target:
       entity_id: '{{ trigger.event.data.entity_id }}'
   mode: single
@@ -28,8 +27,7 @@
   condition: []
   action:
   - service: light.turn_off
-    data:
-      transition: '{{states(''input_number.autolight_transition_off'')}}'
+    data: []
     target:
       entity_id: '{{ trigger.event.data.entity_id }}'
   mode: single
