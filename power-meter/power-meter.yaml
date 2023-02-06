@@ -4,6 +4,7 @@ substitutions:
   project_name: zenzay.power_meter
   pulse_rate: '1000.0'
   ntp_server: '10.25.8.1'
+  avg_window: '7'
 
 esphome:
   name: $device_name
@@ -37,6 +38,7 @@ logger:
 api:
 
 ota:
+  password: "8a3b173cf511422302c6d6a63addf926"
 
 wifi:
   ssid: !secret wifi_ssid
@@ -218,7 +220,8 @@ sensor:
     state_class: total_increasing
     device_class: energy
     accuracy_decimals: 3
-    update_interval: never
+    update_interval: 60s
+    lambda: return id(power_usage_total);
 
   - platform: template
     name: "${device_name} Usage Today"
@@ -228,7 +231,8 @@ sensor:
     state_class: total_increasing
     device_class: energy
     accuracy_decimals: 3
-    update_interval: never
+    update_interval: 60s
+    lambda: return id(power_usage_daily);
 
   - platform: template
     name: "${device_name} Usage This Hour"
@@ -272,11 +276,10 @@ sensor:
     name: "${device_name} Cost This Hour"
     icon: mdi:cash-100
     id: hourly_cost
-    unit_of_measurement: 'DKK'
     accuracy_decimals: 3
+    unit_of_measurement: 'DKK'
     device_class: monetary
-    update_interval: 60s
-    lambda: return id(power_cost_hourly);
+    update_interval: never
 
 time:
   - platform: sntp
@@ -355,7 +358,7 @@ script:
           id(total_usage).publish_state(id(power_usage_total));
           id(daily_usage).publish_state(id(power_usage_daily));
           id(hourly_usage).publish_state(id(power_usage_hourly));
-
+          id(hourly_cost).publish_state(id(power_cost_hourly));
           id(current_hourly_cost).publish_state(x / $pulse_rate * (id(price_per_kwh).state ));
 
           if (x > id(power_problem_level).state) {
