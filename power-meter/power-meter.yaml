@@ -253,6 +253,7 @@ sensor:
     icon: mdi:cash-100
     id: total_cost
     unit_of_measurement: 'DKK'
+    accuracy_decimals: 2
     device_class: monetary
     update_interval: 60s
     lambda: return id(power_cost_total);
@@ -262,6 +263,7 @@ sensor:
     icon: mdi:cash-100
     id: daily_cost
     unit_of_measurement: 'DKK'
+    accuracy_decimals: 2
     device_class: monetary
     update_interval: 60s
     lambda: return id(power_cost_daily);
@@ -271,6 +273,7 @@ sensor:
     icon: mdi:cash-100
     id: hourly_cost
     unit_of_measurement: 'DKK'
+    accuracy_decimals: 3
     device_class: monetary
     update_interval: 60s
     lambda: return id(power_cost_hourly);
