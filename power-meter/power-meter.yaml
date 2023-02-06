@@ -355,8 +355,8 @@ script:
           id(power_cost_daily) += cost;
           id(power_cost_hourly) += cost;
 
-          id(total_usage).publish_state(id(power_usage_total));
-          id(daily_usage).publish_state(id(power_usage_daily));
+          // id(total_usage).publish_state(id(power_usage_total));
+          // id(daily_usage).publish_state(id(power_usage_daily));
           id(hourly_usage).publish_state(id(power_usage_hourly));
           id(hourly_cost).publish_state(id(power_cost_hourly));
           id(current_hourly_cost).publish_state(x / $pulse_rate * (id(price_per_kwh).state ));
