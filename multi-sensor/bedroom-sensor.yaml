@@ -1,5 +1,6 @@
 substitutions:
   device_name: bedroom-sensor
+  ha_light: "bedroom_light"
   device_description: "Multi-Sensor with Automatic Lights"
   project_name: zenzay.multi_sensor
   delay_pir_off: "1000ms"         # pir sensor delay off
@@ -16,7 +17,6 @@ substitutions:
   al_auto_auto: "2"               # auto-light automatically started status code
   timeout_warn_count: "4"         # start dimming sensor light down at this timeout count
   timeout_dim_factor: "0.225"     # factor to calculate step-wise brightness of led. (90 / timeout_warn_count / 100)
-  ha_light: "bedroom_light"
 
 esphome:
   name: $device_name
@@ -26,7 +26,7 @@ esphome:
     version: "0.8.8"
 
 esp8266:
-  board: d1_mini_pro
+  board: d1_mini
 
 wifi:
   ssid: !secret wifi_ssid
@@ -37,6 +37,7 @@ logger:
 api:
 
 ota:
+  password: "ccdb5fd2c722b61c5de71de7ef2ae607"
 
 globals:
   - id: timeout_count     # auto-light timeout in seconds (approximate). tried using millis(), but that made it crash after 12-14 iterations?, and this is precise enough
@@ -188,9 +189,6 @@ button:
     on_press:
       lambda: |-
         id(light_sensor_value).update();
-
-  - platform: factory_reset
-    name: "${device_name} Factory Reset"
 
 number:
   - platform: template
@@ -346,7 +344,7 @@ sensor:
     on_value:
       lambda: |-
         id(light_sensor_level).publish_state(x / $light_sensor_max_read * 100);
-        
+
   - platform: template
     id: light_sensor_level
     name: "${device_name} Light Level"
