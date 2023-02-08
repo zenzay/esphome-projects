@@ -7,10 +7,9 @@ substitutions:
   delay_fixed_sec: "5"            # pir + motion sensor delay
   delay_loop_sec: "1"             # delay in auto_light_timeout script loop
   delay_default_sec: "60"         # default auto-light duration
-  light_level_max_jump: "5"       # max percentage light level is allowed to jump
+  light_sensor_max_read: "1.0"    # max reading light sensor is (should be) able to deliver
+  light_level_max_jump: "3"       # max percentage light level is allowed to jump
   light_level_max_missed: "5"     # max missed light level updates caused by too large jumps in level (only up)
-  light_level_min_range: "5"      # minimum light range acceptable to have usable ambient light
-  light_level_min_max: "5"        # maximum light level to consider current minimum light level acceptable
   al_auto_abort: "-1"             # abort auto-light status code
   al_auto_idle: "0"               # idle auto-light status code
   al_auto_start: "1"              # start auto-light status code
@@ -18,7 +17,7 @@ substitutions:
   timeout_warn_count: "4"         # start dimming sensor light down at this timeout count
   timeout_dim_factor: "0.225"     # factor to calculate step-wise brightness of led. (90 / timeout_warn_count / 100)
   ha_light: "bedroom_light"
-  
+
 esphome:
   name: $device_name
   comment: "${device_description}"
@@ -40,14 +39,6 @@ api:
 ota:
 
 globals:
-  - id: light_level_max   # the highest light level ever registered
-    type: float
-    restore_value: yes
-    initial_value: '-1'
-  - id: light_level_min   # the lowest light level ever registered
-    type: float
-    restore_value: yes
-    initial_value: '101'
   - id: timeout_count     # auto-light timeout in seconds (approximate). tried using millis(), but that made it crash after 12-14 iterations?, and this is precise enough
     type: int
     restore_value: no
@@ -317,9 +308,8 @@ binary_sensor:
     icon: mdi:refresh-auto
 
 sensor:
-  - platform: bme280
+  - platform: bme680
     address: 0x76
-    iir_filter: 4x
     update_interval: 60s
     temperature:
       id: temperature_raw
@@ -344,7 +334,8 @@ sensor:
     filters:
     - calibrate_linear:
       - 0.0 -> 0.0
-      - 18.6 -> 16.1
+      - 11.0 -> 8.9
+      - 20.3 -> 17.4
 
   - platform: adc
     id: light_sensor_value
@@ -354,8 +345,8 @@ sensor:
     pin: A0
     on_value:
       lambda: |-
-        id(light_sensor_level).publish_state(x * 100);
-
+        id(light_sensor_level).publish_state(x / $light_sensor_max_read * 100);
+        
   - platform: template
     id: light_sensor_level
     name: "${device_name} Light Level"
@@ -368,15 +359,6 @@ sensor:
         bool b = false;
         static float last_pct_t = -1;
         static int count_missed_t = 0;
-        if (x < id(light_level_min)) {
-          id(light_level_min) = x;
-        }
-        if (x > id(light_level_max)) {
-          id(light_level_max) = x;
-        }
-        // id(light_level_minimum).publish_state(id(light_level_min));
-        // id(light_level_maximum).publish_state(id(light_level_max));
-
         if (id(auto_status) <= 0) {
           b = (last_pct_t < 0);
           if (!(b)) {
@@ -388,10 +370,6 @@ sensor:
           if (b) {
             last_pct_t = x;
             count_missed_t = 0;
-            x = id(light_level_max) - id(light_level_min);
-            if (x > 0) {
-              x = (last_pct_t - id(light_level_min)) / x * 100;
-            }
             id(ambient_light).publish_state(x);
             id(is_auto_light_ready).execute();
           } else {
@@ -406,22 +384,6 @@ sensor:
     icon: mdi:brightness-7
     update_interval: never
 
-#  - platform: template
-#    id: light_level_maximum
-#    name: "${device_name} Light Level Max"
-#    unit_of_measurement: "%"
-#    icon: mdi:brightness-percent
-#    entity_category: "diagnostic"
-#    update_interval: never
-
-#  - platform: template
-#    id: light_level_minimum
-#    name: "${device_name} Light Level Min"
-#    unit_of_measurement: "%"
-#    icon: mdi:brightness-percent
-#    entity_category: "diagnostic"
-#    update_interval: never
-
 script:
   - id: is_auto_light_ready
     mode: single
@@ -434,13 +396,7 @@ script:
             if (!(b)) {
               b = (id(auto_light_mode).state == "auto");
               if (b) {
-                b = (( id(light_level_max) - id(light_level_min)) >= $light_level_min_range);
-                if (b) {
-                  b = ( id(light_level_min) < $light_level_min_max );
-                  if (b) {
-                    b = (id(ambient_light).state < id(ambient_light_threshold).state);
-                  }
-                }
+                b = (id(ambient_light).state < id(ambient_light_threshold).state);
               }
             }
           }
