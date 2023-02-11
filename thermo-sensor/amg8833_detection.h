@@ -5,7 +5,7 @@ class AMG8833DetectionComponent : public PollingComponent, public BinarySensor
 {
 public:
     float get_setup_priority() const override { return esphome::setup_priority::BUS; }
-    AMG8833DetectionComponent() : PollingComponent(100) {}
+    AMG8833DetectionComponent() : PollingComponent(1000) {}
 
     void setup() override
     {
@@ -43,7 +43,7 @@ public:
         }
 
 	// adjust the minimum hot count to fit your case (use the debug component to find that)
-        if (warm_count > 4)
+        if (warm_count > 3)
         {
             if (!last_state)
             {
@@ -70,7 +70,7 @@ protected:
     GridEYE grideye;
     static const int size = 8;
     static const int total_pixels = size * size;
-    static const int delay = 50;	// delay count * polling interval = 5 seconds (ie. delayed_off: 5s)
+    static const int delay = 5;	// delay count * polling interval = 5 seconds (ie. delayed_off: 5s)
     int delay_count = delay;
     bool last_state = false;
 };
