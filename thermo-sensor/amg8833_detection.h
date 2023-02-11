@@ -21,7 +21,7 @@ public:
     {
         float pixel_temp;
         float min_temp = 0;
-	int hot_count = 0;
+	int warm_count = 0;
 	// run trough grid and find minimum temperature
         for (unsigned char i = 0; i < total_pixels; i++)
         {
@@ -38,12 +38,12 @@ public:
 	    // adjust the hardcoded difference of 3, if needed, to get higher or lower hot pixel counts
             if (pixel_temp > (min_temp + 3))
             {
-                hot_count++;
+                warm_count++;
             }
         }
 
-	// adjust the minimum hot count to fit your case (use the hot_pixels component to find that)
-        if (hot_count > 7)
+	// adjust the minimum hot count to fit your case (use the debug component to find that)
+        if (warm_count > 4)
         {
             if (!last_state)
             {
