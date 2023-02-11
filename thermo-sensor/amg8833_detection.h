@@ -31,7 +31,7 @@ public:
                 min_temp = pixel_temp;
             }
         }
-	// run through the grid again to count number of hot pixels
+	// run through the grid again to count number of warm pixels
         for (unsigned char i = 0; i < total_pixels; i++)
         {
             pixel_temp = grideye.getPixelTemperature(i);
@@ -42,7 +42,7 @@ public:
             }
         }
 
-	// adjust the minimum hot count to fit your case (use the debug component to find that)
+	// adjust the minimum warm count to fit your case (use the debug component to find that)
         if (warm_count > 3)
         {
             if (!last_state)
