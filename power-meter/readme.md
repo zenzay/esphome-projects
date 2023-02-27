@@ -1,5 +1,7 @@
-ESPHome Power Meter
-===================
+ESPHome Power Meter SE
+=======================
+
+Same as Power Meter, but adds a RTC module and E-Ink Display
 
 Yet another version of a non-invasive Power Meter for use in [Home Assistant](https://www.home-assistant.io/), using the [Pulse Meter](https://esphome.io/components/sensor/pulse_meter.html) component in [ESPHome](https://esphome.io/).
 
