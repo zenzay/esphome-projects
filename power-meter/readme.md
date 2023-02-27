@@ -13,7 +13,7 @@ I've added a RTC Module in order to not miss time events (on the hour, midnight 
 
 Latest version adds a 2.9" E-Ink Display and a push button. The button anables turning pages on the display manually. Main page is a - sort of - status page and the subsequent pages shows some graphs and stuff.  To make it easier for myself - not wanting to draw every single line on the display - I've created some transparent backgrounds in GIMP, and just pop those on the display before drawing the rest.
 
-Side note: Achieving transparency when drawing images on displays in ESPHome can be tricky. I often ended up with exporting PNGs from GIMP that, to the naked eye, looked like they were fully transparent, but they were apparently not 100% and turned up black on the display. What seemed to fix it was to fill all areas, that I wanted transparent, with white and subsequently Magic Select the areas and delete them. No idea why, but it worked for me.
+Side note: Achieving transparency when drawing images on displays in ESPHome can be tricky. I often ended up with exporting PNGs from GIMP that, to the naked eye, looked like they were fully transparent, but they were apparently not 100% and turned up black on the display. What seemed to fix it was to fill all areas, that I wanted transparent, with white and subsequently Magic Select the areas and delete them.
 
 To test the accuracy of the Power Meter, I created a simple Arduino Sketch to simulate the flashing led on a 'real' Power Meter. A led blinking at specific intervals to simulate power consumption. You'll find it in the [pulse_led](./pulse_led/) folder.
 
