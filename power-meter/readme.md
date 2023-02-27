@@ -13,7 +13,7 @@ I've added a RTC Module in order to not miss time-events (on the hour, midnight 
 
 Latest version adds a Waveshare 2.9" E-Ink Display and a push button (to turn pages on the display). For that reason I've implemented a **Today Graph** for both usage and costs on the display.
 
-For testing purposes, I created a 'dummy' pulse meter - a simple led pulsing at specified interval to simulate power consumption. You'll find it in the pulse_led folder.
+For testing purposes, I created a 'dummy' pulse meter - a simple led pulsing at specified interval to simulate power consumption. You'll find it in the [pulse_led](./pulse_led/) folder.
 
 *Please bear in mind that this is work in progress and a lot of the code is quite kludgy.*
 
