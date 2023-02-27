@@ -1,5 +1,5 @@
-ESPHome Power Meter SE
-=======================
+ESPHome Power Meter w/ RTC and Display
+======================================
 
 Same as Power Meter, but adds a RTC module and E-Ink Display
 
