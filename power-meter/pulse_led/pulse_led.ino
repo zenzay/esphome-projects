@@ -1,7 +1,7 @@
 // pulse_led - simulate the pulse led on a power panel
 const float pulse_rate = 1000.0f;        // number of blinks per kWh
 const float watt_target = 1000.0f;       // power consumption to simulate - not used if random_power flag is set
-const bool random_power = false;         // randomize power consumption
+const bool random_power = true;          // randomize power consumption
 const uint32_t rnd_interval = 60000;     // randomize power consumption every 60 seconds
 const uint32_t pulse_min_ms = 720;       // min pulse interval when randomizing. 720ms = 5000w at pulse rate 1000 and 500w at pulse rate 10000
 const uint32_t pulse_max_ms = 7200;      // max pulse interval when randomizing. 7200ms = 500w at pulse rate 1000 and 50w at pulse rate 10000
@@ -38,7 +38,7 @@ void loop() {
         blink_interval = random(pulse_min_ms, pulse_max_ms);  // get a new random blink interval
       }
       blink_interval += random(-60, 60);                      // make it fluctuate a bit so the watt changes with (almost) every pulse
-    }    
+    }
     last_blink = now;                                         // remember when we last turn the led on
   } else if (led_state == HIGH) {
     if ( (now - last_blink) >= led_on_ms) {
