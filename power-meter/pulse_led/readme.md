@@ -1,5 +1,5 @@
-PM Pulse LED
-============
+Pulse LED
+=========
 
 A simple Arduinoo sketch to simulate the Pulse LED, found on some Electricity Power Meters.
 
