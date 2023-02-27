@@ -13,7 +13,7 @@ I've added a RTC Module in order to not miss time-events (on the hour, midnight 
 
 Latest version adds a Waveshare 2.9" E-Ink Display and a push button. The button was to be able to turn pages on the display. First page is a, sort of, Status page and the subsequent pages shows some graphs and stuff.  To make it easier for myself - not wanting to draw every single line on the display - I've created some transparent backgrounds in Gimp, and just pop those on the display before drawing the rest.
 
-Side note: Achieving transparency when drawing images in ESPHome can be tricky. I often ended up with exporting PNGs from GUMP that, to the naked eye, looks like they're fully transparent, but they're apparently not 100% and turn up black on the display. What seemed to fix it was to fill all areas, that I wanted transparent, with white and subsequently Magic Select the areas and delete them. No idea why, but it worked for me.
+Side note: Achieving transparency when drawing images in ESPHome can be tricky. I often ended up with exporting PNGs from GIMP that, to the naked eye, looks like they're fully transparent, but they're apparently not 100% and turn up black on the display. What seemed to fix it was to fill all areas, that I wanted transparent, with white and subsequently Magic Select the areas and delete them. No idea why, but it worked for me.
 
 For testing purposes, I created a 'dummy' pulse meter - a simple led pulsing at specified interval to simulate power consumption. You'll find it in the [pulse_led](./pulse_led/) folder.
 
