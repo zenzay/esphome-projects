@@ -1,7 +1,7 @@
 Power Meter
 ===========
 
-This is my version of a non-invasive power meter, using ESPHome. 
+Yet another version of a non-invasive power meter, using the [Pulse Meter](https://esphome.io/components/sensor/pulse_meter.html) component in [ESPHome](https://esphome.io/).
 
 I've used [Home Assistant Glow](https://github.com/klaasnicolaas/home-assistant-glow) for a while without problems. Suddenly I start to get crazy high spikes, in the reported power consumption, every day at around the same time (weird). I had to chase that down and started to look at the code. This is the result. The problem btw. was not with HA Glow or ESPHome but a suddenly very noisy Photodiode.
 
@@ -21,7 +21,7 @@ For testing purposes, I created a 'dummy' pulse meter - a simple led pulsing at 
 Components
 -----------
 
-* Wemos D1 Mini ESP32 (any ESP32 should do)
+* Wemos D1 Mini ESP32 (any ESP32 will do. An ESP8266 *should* work too, but it's not as fast and has fewer pins)
 * DS 3131 Real Time Clock Module (DS1307 also works)
 * 2.9" E-Ink Display (Waveshare or other)
 * Physical Push Button
