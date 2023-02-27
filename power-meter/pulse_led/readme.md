@@ -3,7 +3,7 @@ Pulse LED
 
 A simple Arduinoo sketch to simulate the Pulse LED, found on some Electricity Power Meters.
 
-The parameters are set to simulate a power consumption of 1000 Watt, with a Pulse-Rate of 1000 pulses per kWh, but that's easily changed in the code.
+The parameters are set in the code. It can do fixed power consumption or randomized.
 
 Components
 ----------
