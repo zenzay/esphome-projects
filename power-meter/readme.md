@@ -15,7 +15,7 @@ Latest version adds a 2.9" E-Ink Display and a push button. The button anables t
 
 Side note: Achieving transparency when drawing images on displays in ESPHome can be tricky. I often ended up with exporting PNGs from GIMP that, to the naked eye, looked like they were fully transparent, but they were apparently not 100% and turned up black on the display. What seemed to fix it was to fill all areas, that I wanted transparent, with white and subsequently Magic Select the areas and delete them.
 
-To test the accuracy of the Power Meter, I created a simple Arduino Sketch to simulate the flashing led on a 'real' Power Meter. A led blinking at specific intervals to simulate power consumption. You'll find it in the [pulse_led](./pulse_led/) folder.
+To test the accuracy of the Power Meter, I created a simple Arduino Sketch to simulate the flashing led on a 'real' Power Meter. A led blinking at specific intervals to simulate power consumption. You'll find it in the [pulse_led](./pulse_led/) folder. I also disabled the kWh Price sensor import from HA, so the price stayed fixed during testing.
 
 *Please bear in mind that this is work in progress and a lot of the code is quite kludgy.*
 
