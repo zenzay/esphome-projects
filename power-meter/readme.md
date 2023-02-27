@@ -1,7 +1,7 @@
-Power Meter
-===========
+ESPHome Power Meter
+===================
 
-Yet another version of a non-invasive Power Meter, using the [Pulse Meter](https://esphome.io/components/sensor/pulse_meter.html) component in [ESPHome](https://esphome.io/).
+Yet another version of a non-invasive Power Meter for use in [Home Assistant](https://www.home-assistant.io/), using the [Pulse Meter](https://esphome.io/components/sensor/pulse_meter.html) component in [ESPHome](https://esphome.io/).
 
 I've used [Home Assistant Glow](https://github.com/klaasnicolaas/home-assistant-glow) for a while without problems. Suddenly I start to get crazy high spikes, in the reported power consumption, every day at around the same time (weird). I had to chase that down and started to look at the code. This is the result. The problem btw. was not with HA Glow or ESPHome but a suddenly very noisy Photodiode.
 
