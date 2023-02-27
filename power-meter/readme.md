@@ -11,7 +11,7 @@ The kWh price is imported as a sensor from Home Assistant, but can also be set '
 
 I've added a RTC Module in order to not miss time-events (on the hour, midnight and so on). This way I can be reasonable sure to not miss anything when I'm fiddling with Home Assistant. I probably shouldn't rely on Cron to track time events, but then again, this whole thing should probably be a custom component.
 
-Latest version adds a Waveshare 2.9" E-Ink Display and a push button. The button is meant for turning pages on the display. Main page is a, sort of, status page and the subsequent pages shows some graphs and stuff.  To make it easier for myself - not wanting to draw every single line on the display - I've created some transparent backgrounds in GIMP, and just pop those on the display before drawing the rest.
+Latest version adds a 2.9" E-Ink Display and a push button. The button is meant for turning pages on the display. Main page is a, sort of, status page and the subsequent pages shows some graphs and stuff.  To make it easier for myself - not wanting to draw every single line on the display - I've created some transparent backgrounds in GIMP, and just pop those on the display before drawing the rest.
 
 Side note: Achieving transparency when drawing images on displays in ESPHome can be tricky. I often ended up with exporting PNGs from GIMP that, to the naked eye, looked like they were fully transparent, but they were apparently not 100% and turned up black on the display. What seemed to fix it was to fill all areas, that I wanted transparent, with white and subsequently Magic Select the areas and delete them. No idea why, but it worked for me.
 
@@ -31,7 +31,7 @@ Components
 Wiring
 -------
 
-Waveshare 2.9" E-Ink Display
+[Waveshare 2.9" E-Ink Display](https://www.waveshare.com/2.9inch-e-paper-module.htm)
 | BOARD PIN | ESP32 PIN |
 |----------:|-----------|
 |     BUSY  |       19  |
@@ -44,7 +44,7 @@ Waveshare 2.9" E-Ink Display
 |     VCC   |      3.3v |
 
 
-DS3231 I2C Real Time Clock Module
+[DS3231 I2C Real Time Clock Module](https://components101.com/modules/ds3231-rtc-module-pinout-circuit-datasheet)
 | BOARD PIN | ESP32 PIN |
 |----------:|-----------|
 |      SDA  |       21  |
@@ -52,7 +52,7 @@ DS3231 I2C Real Time Clock Module
 |      VCC  |      VCC  |
 |      GND  |      GND  |
 
-LM393 Photodiode Sensor module
+[LM393 Photodiode Sensor module](https://www.mysensors.org/build/light-lm393)
 | BOARD PIN | ESP32 PIN |
 |----------:|-----------|
 |       D0  |       26  |
@@ -60,7 +60,7 @@ LM393 Photodiode Sensor module
 |      VCC  |      VCC  |
 |      GND  |      GND  |
 
-Push Button
+[Push Button](https://www.switchelectronics.co.uk/black-microminiature-5mm-momentary-off-on-push-button-spst-0-5a)
 |  PIN | ESP32 PIN |
 |-----:|-----------|
 |   1  |      GND  |
