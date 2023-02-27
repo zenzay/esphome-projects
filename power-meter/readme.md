@@ -1,13 +1,13 @@
 Power Meter
 ===========
 
-Yet another version of a non-invasive power meter, using the [Pulse Meter](https://esphome.io/components/sensor/pulse_meter.html) component in [ESPHome](https://esphome.io/).
+Yet another version of a non-invasive Power Meter, using the [Pulse Meter](https://esphome.io/components/sensor/pulse_meter.html) component in [ESPHome](https://esphome.io/).
 
 I've used [Home Assistant Glow](https://github.com/klaasnicolaas/home-assistant-glow) for a while without problems. Suddenly I start to get crazy high spikes, in the reported power consumption, every day at around the same time (weird). I had to chase that down and started to look at the code. This is the result. The problem btw. was not with HA Glow or ESPHome but a suddenly very noisy Photodiode.
 
 My version tries to track both usage and costs - doing hourly, daily and total counts.
 
-The kWh price is imported as a sensor from Home Assistant, but can also be set 'manually'.
+The kWh price is imported as a sensor from Home Assistant, using the [Nordpool Custom Component](https://github.com/custom-components/nordpool), but can also be set 'manually'.
 
 I've added a RTC Module in order to not miss time-events (on the hour, midnight and so on). This way I can be reasonable sure to not miss anything when I'm fiddling with Home Assistant. I probably shouldn't rely on Cron to track time events, but then again, this whole thing should probably be a custom component.
 
