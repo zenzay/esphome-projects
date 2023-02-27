@@ -3,7 +3,7 @@ Power Meter
 
 This is my version of a non-invasive power meter, using ESPHome. 
 
-I've used [Home Assistant Glow](https://github.com/klaasnicolaas/home-assistant-glow) for a while without problems. Suddenly I start to get crazy high spikes, in the reported power consumption, every day at around the same time (weird). I had to chase that down and started to look at the code. This is the result.
+I've used [Home Assistant Glow](https://github.com/klaasnicolaas/home-assistant-glow) for a while without problems. Suddenly I start to get crazy high spikes, in the reported power consumption, every day at around the same time (weird). I had to chase that down and started to look at the code. This is the result. The problem btw. was not with HA Glow but a suddenly very noisy Photodiode.
 
 My version tries to track both usage and costs - doing a hourly, daily and total counts.
 
