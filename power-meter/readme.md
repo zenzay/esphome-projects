@@ -9,7 +9,7 @@ I've used [Home Assistant Glow](https://github.com/klaasnicolaas/home-assistant-
 
 Note: Because of how ESPHome does things, I had to implement several work-arounds, and should probably convert this whole thing to a custom component in ESPHome. However this - although far from elegant - actually seems to work.
 
-The kWh price is imported as a sensor from Home Assistant, using the [Nordpool Custom Component](https://github.com/custom-components/nordpool), but can also be set 'manually' with a Number component.
+The kWh price is imported as a sensor from Home Assistant, using the [Nordpool Custom Component](https://github.com/custom-components/nordpool), but can also be set 'manually' with a Number component in HA. Ideally the price should be fetched directly from NordPool using their API, but I haven't looked at that yet.
 
 I've added a RTC Module in order to not miss time events (on the hour, midnight and so on). This way I can be reasonable sure to not miss anything when I'm fiddling with Home Assistant or my router is down. I probably shouldn't rely on Cron to track time events, but then again, this whole thing should probably be a custom component (but I repeat myself).
 
