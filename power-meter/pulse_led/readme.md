@@ -1,7 +1,7 @@
 Pulse LED
 =========
 
-A simple Arduinoo sketch to simulate the Pulse LED, found on some Electricity Power Meters.
+A simple Arduino sketch to simulate the Pulse-LED, found on some Electricity Power Meters.
 
 The parameters are set in the code. It can do fixed power consumption or randomized.
 
