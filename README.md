@@ -1,4 +1,5 @@
-# esphome-projects
+# ESPHome Projects
+
 A collection of configurations I'm currently employing in ESPHome.
 
 Mostly stuff I'm currently using, to great effect, in Home Assistant.
