@@ -17,9 +17,8 @@ Components
 -----------
 
 * Wemos D1 Mini ESP32 (any ESP32 will do. An ESP8266 *should* work too, but it's not as fast and has fewer pins)
-* DS 3131 Real Time Clock Module (DS1307 also works)
-* 2.9" E-Ink Display (Waveshare or other)
-* Physical Push Button
+* LM393 Photodiode Sensor module
+
 
 Wiring
 -------
