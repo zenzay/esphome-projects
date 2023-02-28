@@ -9,7 +9,7 @@ Note: Because of how ESPHome does things, I had to implement several work-around
 
 The kWh price is imported as a sensor from Home Assistant, using the [Nordpool Custom Component](https://github.com/custom-components/nordpool), but can also be set 'manually' with a Number component in HA. Ideally the price should be fetched directly from NordPool using their API, but I haven't looked at that yet.
 
-To test the accuracy of the Power Meter, I created a simple Arduino Sketch to simulate the flashing led on a 'real' Power Meter. A led blinking at specific intervals to simulate power consumption. You'll find it [here](https://github.com/zenzay/arduino-projects/power-meter-pulse-led/). I also disabled the kWh Price sensor import from HA, so the price stayed fixed during testing.
+To test the accuracy of the Power Meter, I created a simple Arduino Sketch to simulate the flashing led on a 'real' Power Meter. A led blinking at specific intervals to simulate power consumption. You'll find it [here](https://github.com/zenzay/arduino-projects/tree/main/power-meter-pulse-led). I also disabled the kWh Price sensor import from HA, so the price stayed fixed during testing.
 
 *Please bear in mind that this is work in progress and a lot of the code is quite kludgy.*
 
