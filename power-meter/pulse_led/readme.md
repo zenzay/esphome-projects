@@ -5,6 +5,8 @@ A simple Arduinoo sketch to simulate the Pulse LED, found on some Electricity Po
 
 The parameters are set in the code. It can do fixed power consumption or randomized.
 
+Note: I haven't tested the randomize function extensively. I have had it running for 12 hours without issues though. Using fixed intervals has been tested running for a week, still keeping exact timings.
+
 Components
 ----------
 
