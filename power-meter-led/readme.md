@@ -6,7 +6,7 @@ These LEDs usually pulse with either 1000 or 10000 pulses per kWh, and thus we c
 
 The custom component allows you to set *Pulse Rate* and to set the *Power Use* (consumption) to simulate, using a couple of Number components.
 
-It also has an enable switch, which you have to flip to get some action.
+Note: Unfortunately it's apparently not as precise as I hoped. The measured power consumption fluctuates a few watts up and down. If you want more accurate timing, I'm afraid this wont do and you'll have to hit the hardware more directly.
 
 ### Instructions ###
 
