@@ -1,0 +1,70 @@
+substitutions:
+  device_name: power-meter-led
+  friendly_name: "Power Meter LED"
+  device_description: "Simulate the Pulsing LED on a Power-Meter"
+  project_name: zenzay.power_meter_led
+
+esphome:
+  name: $device_name
+  comment: $device_description
+  friendly_name: $friendly_name
+  project:
+    name: $project_name
+    version: "0.1.5"
+  includes:
+    - power_meter_led.h
+
+esp32:
+  board: nodemcu-32s
+  framework:
+    type: arduino
+
+logger:
+
+api:
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+custom_component:
+- lambda: |-
+    auto myComponent = new PowerMeterLEDComponent(id(pm_led_enable), id(pm_pulse_rate), id(pm_power_use));
+    return {myComponent};
+
+switch:
+  - platform: template
+    name: "Enable"
+    id: pm_led_enable
+    optimistic: true
+    restore_state: false
+    entity_category: "config"
+    
+number:
+  - platform: template
+    name: "Pulse Rate"
+    id: pm_pulse_rate
+    unit_of_measurement: 'imp/kWh'
+    optimistic: true
+    min_value: 100
+    max_value: 10000
+    step: 100
+    initial_value: 1000
+    restore_value: false
+    entity_category: "config"
+    mode: box
+
+  - platform: template
+    name: "Power Use"
+    id: pm_power_use
+    unit_of_measurement: 'Watt'
+    optimistic: true
+    min_value: 1
+    max_value: 10000
+    initial_value: 1000
+    step: 1
+    restore_value: false
+    entity_category: "config"
+    mode: box
