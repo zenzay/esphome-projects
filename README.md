@@ -6,6 +6,7 @@ Mostly stuff I'm currently using, to great effect, in Home Assistant.
 
 1. Alarm-Panel
 2. Multi-Sensor (will be committed soon)
-3. Thermo-Sensor
+3. Power-Meter-LED
+4. Thermo-Sensor
 
 ... more to come.
