@@ -1,6 +1,6 @@
 # Power Meter LED #
 
-## A ESPHome custom component that attempts to simulate the flashing LED on a regular Power Meter. ##
+## A ESPHome custom component that attempts to simulate the flashing LED, which in used in some Power Meter. ##
 
 These LEDs usually pulse with either 1000 or 10000 pulses per kWh, and thus we can simulate this with our own LED and an ESP32.
 
