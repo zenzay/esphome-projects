@@ -1,8 +1,6 @@
 # ESPHome Projects
 
-A collection of configurations I'm currently employing in ESPHome.
-
-Mostly stuff I'm currently using, to great effect, in Home Assistant.
+A collection of configurations and stuff, I'm currently employing in ESPHome.
 
 1. Alarm-Panel
 2. Multi-Sensor (will be committed soon)
