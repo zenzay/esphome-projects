@@ -1,6 +1,9 @@
-A multi-sensor with Temperature, Humidity, Pressure, Motion and Light sensors and Automatic Light.
+Multi-Sensor
+============
 
-Partlist:
+## A multi-sensor with Temperature, Humidity, Pressure, Motion and Light sensors and Automatic Light. ##
+
+Components:
 
 1. Wemos D1 Mini (or Mini Pro)
 2. LDR Sensor + 4.7k ohm resistor
