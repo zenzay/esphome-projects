@@ -1,4 +1,7 @@
-Alarm-panel using a RFID reader, RGB lights and Rtttl Buzzer.
+Alarm-Panel
+===========
+
+## Alarm-panel using a RFID reader, RGB lights and Rtttl Buzzer. ##
 
 Partslist:
   1. Wemos D1 Mini ESP32
